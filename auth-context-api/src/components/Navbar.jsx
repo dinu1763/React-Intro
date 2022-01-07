@@ -1,10 +1,16 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 
 export const Navbar = () => {
-    const {auth} = useContext(AuthContext)
+    const {isAuth, toggleAuth, handleTokenChange} = useContext(AuthContext)
+    const handleLogout = () => {
+        toggleAuth();
+        handleTokenChange('');
+    }
     return <div>
-        login : {auth}
+        {
+            isAuth ? <button onClick={handleLogout}>Logout</button> : <button onClick={() => true}>Login</button>
+        }
 
     </div>
 }
