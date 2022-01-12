@@ -1,23 +1,39 @@
-import logo from './logo.svg';
 import './App.css';
-
+import { Home } from './components/Home';
+import { Settings } from './components/Settings';
+import { Dashboard } from './components/Dashboard';
+import { Route, Routes} from 'react-router-dom';
+import { Navbar } from './components/Navbar';
+import { PrivateRoute } from './components/PrivateRoute';
+import { Login } from './components/Login';
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Navbar/>
+      <Routes>
+          <Route path="/" element={<Home/>}></Route>
+          
+          <Route path="/login" element={<Login/>}></Route>
+          <Route 
+          path="/dashboard/settings" 
+          element={
+                  <PrivateRoute> 
+                    <Settings/>
+                  </PrivateRoute>
+              }
+          ></Route>
+          <Route 
+          path="/dashboard" 
+          element={
+                  <PrivateRoute> 
+                    <Dashboard/>
+                  </PrivateRoute>
+              }
+          ></Route>
+          
+          <Route path="*" element={<h1>404 Page Not Found!</h1>}></Route>
+      </Routes>
+      
     </div>
   );
 }
